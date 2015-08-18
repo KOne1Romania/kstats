@@ -1,2 +1,2 @@
-# Minits
-Pieces of monitoring rules for Monit
+# KStats
+Configuration, stats definitions and deployment of our data monitoring infrastructure.
