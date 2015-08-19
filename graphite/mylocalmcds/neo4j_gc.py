@@ -11,16 +11,18 @@ class MylocalmcdsNeo4jGCPlotter(BaseStatsdPlotter):
 
         # Set custom attributes
         node_env = os.environ.get('NODE_ENV', 'local')
-        self.metric = 'mylocalmcds.%s.neo4j.gc.count' % node_env
+        self.metric = 'mylocalmcds.%s.neo4j.gc' % node_env
 
     def plot(self):
-        value = os.popen(
+        # Compute metric value
+        command = os.popen(
             "cat /var/lib/neo4j/data/graph.db/messages.log | grep '%s' | grep 'GC Monitor: Application threads blocked for' | wc -l" %
-            strftime("%Y-%m-%d", gmtime())).read()
+            strftime("%Y-%m-%d", gmtime()))
+        value = int(command.read())
 
+        # Send data to statsd daemon.
         self.statsd.gauge(self.metric, value)
-
-        print("[%s]: Flushed %s for %s to statsd." % (
+        print("[%s]: Plotted %s for %s to statsd." % (
               strftime("%Y-%m-%d-%H:%M:%S", gmtime()), value, self.metric))
 
 if __name__ == '__main__':
