@@ -14,9 +14,9 @@ class MylocalmcdsNeo4jGCPlotter(BaseStatsdPlotter):
         self.metric = 'mylocalmcds.%s.neo4j.gc.count' % node_env
 
     def plot(self):
-        value = os.system(
+        value = os.popen(
             "cat /var/lib/neo4j/data/graph.db/messages.log | grep '%s' | grep 'GC Monitor: Application threads blocked for' | wc -l" %
-            strftime("%Y-%m-%d", gmtime()))
+            strftime("%Y-%m-%d", gmtime())).read()
 
         self.statsd.gauge(self.metric, value)
 
