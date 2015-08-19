@@ -25,9 +25,6 @@ class BaseStatsdPlotter(object):
         """ While the plooter """
         while True:
             self.plot()
-            print("[%s]: Flushed data to statsd." %
-                  time.strftime("%Y-%m-%d-%H:%M:%S", time.gmtime()))
-
             time.sleep(self.timeout)
 
         else:
