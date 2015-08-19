@@ -1,13 +1,13 @@
 import os
 from time import gmtime, strftime
 
-from pykstats.common.statsd_client_controller import StatsdClientController
+from pykstats.common.base_statsd_plotter import BaseStatsdPlotter
 
 
-class MylocalmcdsNeo4jGC(StatsdClientController):
+class MylocalmcdsNeo4jGCPlotter(BaseStatsdPlotter):
     def __init__(self):
         # Set default attributes
-        super(MylocalmcdsNeo4jGC, self).__init__()
+        super(MylocalmcdsNeo4jGCPlotter, self).__init__()
 
         # Set custom attributes
         node_env = os.environ.get('NODE_ENV', 'local')
@@ -16,11 +16,11 @@ class MylocalmcdsNeo4jGC(StatsdClientController):
             strftime("%Y-%m-%d", gmtime()))
         self.metric = 'mylocalmcds.%s.neo4j.gc.count' % node_env
 
-    def compute(self):
+    def plot(self):
         self.statsd.gauge(self.metric, self.value)
 
 if __name__ == '__main__':
-    plotter = MylocalmcdsNeo4jGC()
-    plotter.run()
-    print("[%s]: Started MylocalmcdsNeo4jGC plotter." %
+    plotter = MylocalmcdsNeo4jGCPlotter()
+    print("[%s]: Starting MylocalmcdsNeo4jGC plotter..." %
           strftime("%Y-%m-%d", gmtime()))
+    plotter.run()
