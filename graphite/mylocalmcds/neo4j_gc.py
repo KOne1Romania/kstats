@@ -1,4 +1,5 @@
 import os
+import socket
 from time import gmtime, strftime
 
 from pykstats.common.base_statsd_plotter import BaseStatsdPlotter
@@ -10,8 +11,8 @@ class MylocalmcdsNeo4jGCPlotter(BaseStatsdPlotter):
         super(MylocalmcdsNeo4jGCPlotter, self).__init__()
 
         # Set custom attributes
-        node_env = os.environ.get('NODE_ENV', 'local')
-        self.metric = 'mylocalmcds.%s.neo4j.gc' % node_env
+        fqdn = socket.getfqdn()
+        self.metric = 'mylocalmcds.%s.neo4j.gc' % fqdn
 
     def plot(self):
         # Compute metric value
