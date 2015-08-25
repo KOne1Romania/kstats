@@ -11,8 +11,8 @@ class MylocalmcdsNeo4jGCPlotter(BaseStatsdPlotter):
         super(MylocalmcdsNeo4jGCPlotter, self).__init__()
 
         # Set custom attributes
-        fqdn = socket.getfqdn()
-        self.metric = 'mylocalmcds.%s.neo4j.gc' % fqdn
+        fqdn = socket.getfqdn().replace('.','_')
+        self.metric = '%s.neo4j.gc' % fqdn
 
     def plot(self):
         # Compute metric value
