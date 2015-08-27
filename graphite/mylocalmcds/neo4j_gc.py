@@ -17,7 +17,7 @@ class MylocalmcdsNeo4jGCPlotter(BaseStatsdPlotter):
     def plot(self):
         # Compute metric value
         command = os.popen(
-            "cat /var/lib/neo4j/data/graph.db/messages.log | grep '%s' | grep 'GC Monitor: Application threads blocked for' | wc -l" %
+            "cat /var/lib/neo4j-community-2.1.8/data/graph.db/messages.log | grep '%s' | grep 'GC Monitor: Application threads blocked for' | wc -l" %
             strftime("%Y-%m-%d", gmtime()))
         value = int(command.read())
 
