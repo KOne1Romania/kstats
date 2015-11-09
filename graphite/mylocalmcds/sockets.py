@@ -12,7 +12,7 @@ class MylocalmcdsSocketsTimeWaitCountPlotter(BaseStatsdPlotter):
 
         # Set custom attributes
         fqdn = socket.getfqdn().replace('.','_')
-        self.metric = '%s.socket.time-wait.count' % fqdn
+        self.metric = '%s.socket.time-wait.gc' % fqdn
 
     def plot(self):
         # Compute metric value
@@ -21,7 +21,7 @@ class MylocalmcdsSocketsTimeWaitCountPlotter(BaseStatsdPlotter):
         value = int(command.read())
 
         # Send data to statsd daemon.
-        self.statsd.count(self.metric, value)
+        self.statsd.gauge(self.metric, value)
         print("[%s]: Plotted %s for %s to statsd." % (
               strftime("%Y-%m-%d-%H:%M:%S", gmtime()), value, self.metric))
 
@@ -32,7 +32,7 @@ class MylocalmcdsSocketsEstablishedCountPlotter(BaseStatsdPlotter):
 
         # Set custom attributes
         fqdn = socket.getfqdn().replace('.','_')
-        self.metric = '%s.socket.established.count' % fqdn
+        self.metric = '%s.socket.established.gc' % fqdn
 
     def plot(self):
         # Compute metric value
@@ -41,7 +41,7 @@ class MylocalmcdsSocketsEstablishedCountPlotter(BaseStatsdPlotter):
         value = int(command.read())
 
         # Send data to statsd daemon.
-        self.statsd.count(self.metric, value)
+        self.statsd.gauge(self.metric, value)
         print("[%s]: Plotted %s for %s to statsd." % (
               strftime("%Y-%m-%d-%H:%M:%S", gmtime()), value, self.metric))
 
