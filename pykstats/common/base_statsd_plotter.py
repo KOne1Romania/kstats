@@ -1,3 +1,4 @@
+import json
 import os
 import time
 
@@ -24,7 +25,7 @@ class BaseStatsdPlotter(object):
             self.config = {}
         else:
             with open(config_file_path, 'r') as config_file:
-                self.config = config_file.read()
+                self.config = json.loads(config_file.read())
 
     def plot(self):
         """ The method has to be implemented by the plotter. """
