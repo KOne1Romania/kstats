@@ -19,7 +19,7 @@ class BaseStatsdPlotter(object):
         self.timeout = 10
 
         # Check if a configuration file exists, otherwise use defaults
-        if not os.path.isfile(os.env.get("CONFIG_FILE")):
+        if not os.path.isfile(os.environ.get("CONFIG_FILE", '~/.config.json')):
             self.config = {}
         else:
             with open(config_file_path, 'r') as config_file:
