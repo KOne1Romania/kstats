@@ -1,3 +1,4 @@
+import os
 import time
 
 import statsd
@@ -16,6 +17,17 @@ class BaseStatsdPlotter(object):
         self.statsd = statsd.StatsClient()
         # Default time interval for flushing data in seconds
         self.timeout = 10
+
+        # Check if a configuration file exists, otherwise use defaults
+        current_directory = os.path.dirname(os.path.realpath(__file__))
+        config_file_path = os.path.join(current_directory, '../config.json')
+
+        if not os.path.isfile(config_file_path):
+            self.config = {}
+        else:
+            with open(config_file_path, 'r') as config_file:
+                self.config = config_file.read()
+
 
     def plot(self):
         """ The method has to be implemented by the plotter. """
