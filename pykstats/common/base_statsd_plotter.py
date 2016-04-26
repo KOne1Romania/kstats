@@ -19,12 +19,12 @@ class BaseStatsdPlotter(object):
         self.timeout = 10
 
         # Check if a configuration file exists, otherwise use defaults
-        if not os.path.isfile(os.environ.get("CONFIG_FILE", '~/.config.json')):
+        config_file_path = os.environ.get("CONFIG_FILE", '~/.config.json')
+        if not os.path.isfile(config_file_path):
             self.config = {}
         else:
             with open(config_file_path, 'r') as config_file:
                 self.config = config_file.read()
-
 
     def plot(self):
         """ The method has to be implemented by the plotter. """
