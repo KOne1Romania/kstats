@@ -21,9 +21,8 @@ class MylocalmcdsOpenFilesPlotter(BaseStatsdPlotter):
         with open(config['neo4j']['pid_file_path'], 'r') as neo4j_pid_file:
             neo4j_pid = neo4j_pid_file.read()
         # Compute metric value
-        command = subprocess.Popen("lsof -p %s | wc -l" % neo4j_pid,
-            stdin=subprocess.PIPE, shell=True )
-        value = int(command.read())
+        value = int(subprocess.Popen("lsof -p %s | wc -l" % neo4j_pid,
+            stdin=subprocess.PIPE, shell=True ))
 
         # Send data to statsd daemon.
         self.statsd.gauge(self.metric, value)
