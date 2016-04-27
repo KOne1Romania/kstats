@@ -1,5 +1,6 @@
 import os
 import socket
+import subprocess
 from time import gmtime, strftime
 
 from pykstats.common.base_statsd_plotter import BaseStatsdPlotter
@@ -20,7 +21,8 @@ class MylocalmcdsOpenFilesPlotter(BaseStatsdPlotter):
         with open(config['neo4j']['pid_file_path'], 'r') as neo4j_pid_file:
             neo4j_pid = neo4j_pid_file.read()
         # Compute metric value
-        command = os.popen("lsof -p %s | wc -l" % neo4j_pid)
+        command = subprocess.Popen("lsof -p %s | wc -l" % neo4j_pid,
+            stdin=subprocess.PIPE, shell=True )
         value = int(command.read())
 
         # Send data to statsd daemon.
