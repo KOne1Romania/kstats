@@ -22,7 +22,7 @@ class MylocalmcdsOpenFilesPlotter(BaseStatsdPlotter):
             neo4j_pid = neo4j_pid_file.read()
 
         # Compute metric value
-        command1 = subprocess.Popen(["sudo", "lsof", "-p %s" % neo4j_pid],
+        command1 = subprocess.Popen(["lsof", "-p %s" % neo4j_pid],
             stdout=subprocess.PIPE)
         command2 = subprocess.Popen(["wc", "-l"], stdin=command1.stdout,
             stdout=subprocess.PIPE)
