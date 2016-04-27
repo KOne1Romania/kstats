@@ -19,7 +19,7 @@ class MylocalmcdsOpenFilesPlotter(BaseStatsdPlotter):
         config =  self.config['MylocalmcdsOpenFilesPlotter']
         # Get neo4j process id
         with open(config['neo4j']['pid_file_path'], 'r') as neo4j_pid_file:
-            neo4j_pid = neo4j_pid_file.read()
+            neo4j_pid = neo4j_pid_file.read().strip('\n')
 
         # Compute metric value
         command1 = subprocess.Popen(["lsof", "-p %s" % neo4j_pid],
