@@ -17,7 +17,7 @@ class MylocalmcdsOpenFilesPlotter(BaseStatsdPlotter):
     def plot(self):
         config =  self.config['MylocalmcdsOpenFilesPlotter']
         # Get neo4j process id
-        with open(self.config['neo4j']['pid_file_path'], 'r') as neo4j_pid_file:
+        with open(config['neo4j']['pid_file_path'], 'r') as neo4j_pid_file:
             neo4j_pid = neo4j_pid_file.read()
         # Compute metric value
         command = os.popen("lsof -p $(%s)" % neo4j_pid)
