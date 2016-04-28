@@ -20,7 +20,7 @@ class MylocalmcdsOpenFilesPlotter(BaseStatsdPlotter):
         config =  self.config['MylocalmcdsOpenFilesPlotter']
         # Get neo4j process id
         with open(config['neo4j']['pid_file_path'], 'r') as neo4j_pid_file:
-            neo4j_pid = neo4j_pid_file.read().strip('\n')
+            neo4j_pid = int(neo4j_pid_file.read().strip('\n'))
 
         value = psutil.Process(neo4j_pid).get_open_files()
 
