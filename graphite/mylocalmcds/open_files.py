@@ -22,7 +22,8 @@ class MylocalmcdsOpenFilesPlotter(BaseStatsdPlotter):
         with open(config['neo4j']['pid_file_path'], 'r') as neo4j_pid_file:
             neo4j_pid = int(neo4j_pid_file.read().strip('\n'))
 
-        value = psutil.Process(neo4j_pid).get_open_files()
+        # Get number of open files
+        value = len(psutil.Process(neo4j_pid).open_files())
 
         # Send data to statsd daemon.
         self.statsd.gauge(self.metric, value)
